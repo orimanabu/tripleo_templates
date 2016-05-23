@@ -15,7 +15,7 @@ time openstack overcloud deploy \
 --ceph-storage-scale 1 \
 --control-flavor control \
 --compute-flavor compute \
---ceph-storage-flavor storage \
+--ceph-storage-flavor ceph-storage \
 --neutron-tunnel-types vxlan \
 --neutron-network-type vxlan \
 -e ~/templates/storage-environment.yaml \
