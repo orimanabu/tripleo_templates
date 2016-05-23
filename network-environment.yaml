@@ -22,7 +22,7 @@ parameter_defaults:
   # Gateway router for the provisioning network (or Undercloud IP)
   ControlPlaneDefaultRoute: 10.0.9.254
   # The IP address of the EC2 metadata server. Generally the IP of the Undercloud
-  EC2MetadataIp: 10.0.9.200
+  EC2MetadataIp: 10.0.9.10
   # Define the DNS servers (maximum 2) for the overcloud nodes
   DnsServers: ["10.64.255.25","10.68.5.25"]
   InternalApiNetworkVlanID: 201

@@ -97,16 +97,6 @@ resources:
                   default: true
                   next_hop: {get_param: ControlPlaneDefaultRoute}
             -
-              type: interface
-              name: nic2
-              use_dhcp: false
-              defroute: false
-            -
-              type: interface
-              name: nic3
-              use_dhcp: false
-              defroute: false
-            -
               type: ovs_bridge
               name: {get_input: bridge_name}
               members:
@@ -117,11 +107,11 @@ resources:
                   members:
                     -
                       type: interface
-                      name: nic4
+                      name: nic2
                       primary: true
                     -
                       type: interface
-                      name: nic5
+                      name: nic3
                 -
                   type: vlan
                   device: bond1
