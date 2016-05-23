@@ -4,16 +4,16 @@ source ~/stackrc
 workdir=~/images_work
 imagedir=~/images
 
-#mkdir -p ${workdir}
-#mkdir -p ${imagedir}
-#
-#image=CentOS-7-x86_64-GenericCloud.qcow2.xz
-#mkdir -p ~/.cache/image-create
-#scp ori@trevally.usersys.redhat.com:${image} ~/.cache/image-create/${image}
+mkdir -p ${workdir}
+mkdir -p ${imagedir}
+
+image=CentOS-7-x86_64-GenericCloud.qcow2.xz
+mkdir -p ~/.cache/image-create
+scp ori@trevally.usersys.redhat.com:${image} ~/.cache/image-create/${image}
 
 export NODE_DIST=centos7
 export USE_DELOREAN_TRUNK=1
-export DELOREAN_TRUNK_REPO="http://trunk.rdoproject.org/centos7-mitaka/current/"
+export DELOREAN_TRUNK_REPO="http://trunk.rdoproject.org/centos7-mitaka/current-passed-ci/"
 export DELOREAN_REPO_FILE="delorean.repo"
 
 cd ${workdir} && time openstack overcloud image build --all
