@@ -1,0 +1,12 @@
+
+
+# (on KVM host) create /etc/fence_virt.conf 
+fence_virtd -c
+
+# (on KVM host) firewall rule
+sudo firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m udp -p udp -m pkttype --pkt-type multicast -j ACCEPT
+sudo firewall-cmd --permanent --add-port=1229/udp
+sudo firewall-cmd --add-port=1229/udp
+
+# (both on KVM host and controller VM) test
+fence_xvm -o list

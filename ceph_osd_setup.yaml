@@ -1,0 +1,4 @@
+resource_registry:
+  OS::TripleO::NodeUserData: /home/stack/templates/firstboot/ceph_wipe_disk.yaml
+parameter_defaults:
+  ceph_disks: "/dev/vdb /dev/vdc /dev/vdd /dev/vde"

@@ -1,0 +1,42 @@
+resource_registry:
+  OS::TripleO::BlockStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/cinder-storage.yaml
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
+  OS::TripleO::ObjectStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/swift-storage.yaml
+  OS::TripleO::CephStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/ceph-storage.yaml
+
+parameter_defaults:
+  InternalApiNetCidr: 172.16.201.0/24
+  TenantNetCidr: 172.16.202.0/24
+  StorageNetCidr: 172.16.203.0/24
+  StorageMgmtNetCidr: 172.16.204.0/24
+  ExternalNetCidr: 10.1.1.0/24
+  InternalApiAllocationPools: [{'start': '172.16.201.210', 'end': '172.16.201.240'}]
+  TenantAllocationPools: [{'start': '172.16.202.210', 'end': '172.16.202.240'}]
+  StorageAllocationPools: [{'start': '172.16.203.210', 'end': '172.16.203.240'}]
+  StorageMgmtAllocationPools: [{'start': '172.16.204.210', 'end': '172.16.204.240'}]
+  # Leave room for floating IPs in the External allocation pool
+  ExternalAllocationPools: [{'start': '10.1.1.210', 'end': '10.1.1.240'}]
+  # Set to the router gateway on the external network
+  ExternalInterfaceDefaultRoute: 10.1.1.1
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: 10.0.9.254
+  # The IP address of the EC2 metadata server. Generally the IP of the Undercloud
+  EC2MetadataIp: 10.0.9.200
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ["10.64.255.25","10.68.5.25"]
+  InternalApiNetworkVlanID: 201
+  TenantNetworkVlanID: 202
+  StorageNetworkVlanID: 203
+  StorageMgmtNetworkVlanID: 204
+  ExternalNetworkVlanID: 100
+  # Set to "br-ex" if using floating IPs on native VLAN on bridge br-ex
+  NeutronExternalNetworkBridge: "''"
+#  NeutronNetworkType: 'vlan'
+  # Customize bonding options if required
+  BondInterfaceOvsOptions:
+#    "bond_mode=balance-slb"
+    "bond_mode=active-backup"
+#  ServiceNetMap:
+#    KeystoneAdminApiNetwork: internal_api # allows undercloud to config endpoints
+

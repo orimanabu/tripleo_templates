@@ -1,0 +1,63 @@
+# Enable the creation of Neutron networks for isolated Overcloud
+# traffic and configure each role to assign ports (related
+# to that role) on these networks.
+# Many networks are disabled by default because they are not used
+# in a typical configuration. Override via parameter_defaults.
+resource_registry:
+  OS::TripleO::Network::External: /home/stack/templates/tht/network/external.yaml
+  OS::TripleO::Network::InternalApi: /home/stack/templates/tht/network/internal_api.yaml
+  OS::TripleO::Network::StorageMgmt: /home/stack/templates/tht/network/storage_mgmt.yaml
+  OS::TripleO::Network::Storage: /home/stack/templates/tht/network/storage.yaml
+  OS::TripleO::Network::Tenant: /home/stack/templates/tht/network/tenant.yaml
+  # Management network is optional and disabled by default
+  OS::TripleO::Network::Management: /home/stack/templates/tht/network/noop.yaml
+
+  # Port assignments for the VIPs
+  OS::TripleO::Network::Ports::ExternalVipPort: /home/stack/templates/tht/network/ports/external.yaml
+  OS::TripleO::Network::Ports::InternalApiVipPort: /home/stack/templates/tht/network/ports/internal_api.yaml
+  OS::TripleO::Network::Ports::StorageVipPort: /home/stack/templates/tht/network/ports/storage.yaml
+  OS::TripleO::Network::Ports::StorageMgmtVipPort: /home/stack/templates/tht/network/ports/storage_mgmt.yaml
+  OS::TripleO::Network::Ports::RedisVipPort: /home/stack/templates/tht/network/ports/vip.yaml
+
+  # Port assignments for the controller role
+#  OS::TripleO::Controller::Ports::ExternalPort: /home/stack/templates/tht/network/ports/external.yaml
+#  OS::TripleO::Controller::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api.yaml
+#  OS::TripleO::Controller::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage.yaml
+#  OS::TripleO::Controller::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt.yaml
+#  OS::TripleO::Controller::Ports::TenantPort: /home/stack/templates/tht/network/ports/tenant.yaml
+  OS::TripleO::Controller::Ports::ManagementPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+  # Port assignments for the compute role
+#  OS::TripleO::Compute::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+#  OS::TripleO::Compute::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api.yaml
+#  OS::TripleO::Compute::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage.yaml
+#  OS::TripleO::Compute::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/noop.yaml
+#  OS::TripleO::Compute::Ports::TenantPort: /home/stack/templates/tht/network/ports/tenant.yaml
+  OS::TripleO::Compute::Ports::ManagementPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+  # Port assignments for the ceph storage role
+#  OS::TripleO::CephStorage::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+#  OS::TripleO::CephStorage::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/noop.yaml
+#  OS::TripleO::CephStorage::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage.yaml
+#  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt.yaml
+#  OS::TripleO::CephStorage::Ports::TenantPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::CephStorage::Ports::ManagementPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+  # Port assignments for the swift storage role
+#  OS::TripleO::SwiftStorage::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+#  OS::TripleO::SwiftStorage::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api.yaml
+#  OS::TripleO::SwiftStorage::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage.yaml
+#  OS::TripleO::SwiftStorage::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt.yaml
+#  OS::TripleO::SwiftStorage::Ports::TenantPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::SwiftStorage::Ports::ManagementPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+  # Port assignments for the block storage role
+#  OS::TripleO::BlockStorage::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+#  OS::TripleO::BlockStorage::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api.yaml
+#  OS::TripleO::BlockStorage::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage.yaml
+#  OS::TripleO::BlockStorage::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt.yaml
+#  OS::TripleO::BlockStorage::Ports::TenantPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::BlockStorage::Ports::ManagementPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+  # Port assignments for service virtual IPs for the controller role
+  OS::TripleO::Controller::Ports::RedisVipPort: /home/stack/templates/tht/network/ports/vip.yaml

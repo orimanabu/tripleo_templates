@@ -1,0 +1,78 @@
+digraph graph_name {
+graph [
+  rankdir = BT
+];
+node [
+  style = filled,
+  shape = box,
+  fillcolor = "#fffece",
+  fontname = "Migu 1M"
+];
+"ip-172.16.201.210" -> "haproxy-clone"
+"ip-10.0.9.110" -> "haproxy-clone"
+"ip-172.16.204.210" -> "haproxy-clone"
+"ip-10.1.1.210" -> "haproxy-clone"
+"ip-172.16.201.239" -> "haproxy-clone"
+"ip-172.16.203.210" -> "haproxy-clone"
+"memcached-clone" -> "openstack-keystone-clone"
+"mongod-clone" -> "openstack-ceilometer-central-clone"
+"openstack-glance-registry-clone" -> "openstack-glance-api-clone"
+"rabbitmq-clone" -> "openstack-keystone-clone"
+"openstack-heat-api-clone" -> "openstack-heat-api-cfn-clone"
+"delay-clone" -> "openstack-ceilometer-alarm-evaluator-clone"
+"openstack-keystone-clone" -> "openstack-ceilometer-central-clone"
+"openstack-keystone-clone" -> "openstack-glance-registry-clone"
+"openstack-keystone-clone" -> "openstack-cinder-api-clone"
+"openstack-cinder-scheduler-clone" -> "openstack-cinder-volume"
+"redis-master" -> "openstack-ceilometer-central-clone"
+"openstack-nova-scheduler-clone" -> "openstack-nova-conductor-clone"
+"openstack-nova-consoleauth-clone" -> "openstack-nova-novncproxy-clone"
+"neutron-l3-agent-clone" -> "neutron-metadata-agent-clone"
+"openstack-nova-novncproxy-clone" -> "openstack-nova-api-clone"
+"openstack-heat-api-cloudwatch-clone" -> "openstack-heat-engine-clone"
+"openstack-ceilometer-notification-clone" -> "openstack-heat-api-clone"
+"openstack-keystone-clone" -> "neutron-server-clone"
+"neutron-dhcp-agent-clone" -> "neutron-l3-agent-clone"
+"neutron-server-clone" -> "neutron-openvswitch-agent-clone"
+"openstack-ceilometer-alarm-notifier-clone" -> "openstack-ceilometer-notification-clone"
+"openstack-keystone-clone" -> "openstack-nova-consoleauth-clone"
+"openstack-nova-api-clone" -> "openstack-nova-scheduler-clone"
+"openstack-heat-api-cfn-clone" -> "openstack-heat-api-cloudwatch-clone"
+"neutron-openvswitch-agent-clone" -> "neutron-dhcp-agent-clone"
+"openstack-ceilometer-api-clone" -> "delay-clone"
+"galera-master" -> "openstack-keystone-clone"
+"openstack-cinder-api-clone" -> "openstack-cinder-scheduler-clone"
+"neutron-netns-cleanup-clone" -> "neutron-openvswitch-agent-clone"
+"openstack-ceilometer-central-clone" -> "openstack-ceilometer-collector-clone"
+"haproxy-clone" -> "openstack-keystone-clone"
+"neutron-ovs-cleanup-clone" -> "neutron-netns-cleanup-clone"
+"openstack-ceilometer-collector-clone" -> "openstack-ceilometer-api-clone"
+"openstack-keystone-clone" -> "openstack-heat-api-clone"
+"openstack-ceilometer-alarm-evaluator-clone" -> "openstack-ceilometer-alarm-notifier-clone"
+"ip-172.16.204.210" -> "haproxy-clone" [style = dotted]
+"ip-10.1.1.210" -> "haproxy-clone" [style = dotted]
+"ip-172.16.203.210" -> "haproxy-clone" [style = dotted]
+"ip-10.0.9.110" -> "haproxy-clone" [style = dotted]
+"ip-172.16.201.239" -> "haproxy-clone" [style = dotted]
+"ip-172.16.201.210" -> "haproxy-clone" [style = dotted]
+"openstack-glance-api-clone" -> "openstack-glance-registry-clone" [style = dotted]
+"openstack-cinder-volume" -> "openstack-cinder-scheduler-clone" [style = dotted]
+"neutron-dhcp-agent-clone" -> "neutron-openvswitch-agent-clone" [style = dotted]
+"openstack-nova-scheduler-clone" -> "openstack-nova-api-clone" [style = dotted]
+"neutron-l3-agent-clone" -> "neutron-dhcp-agent-clone" [style = dotted]
+"openstack-ceilometer-notification-clone" -> "openstack-ceilometer-alarm-notifier-clone" [style = dotted]
+"neutron-openvswitch-agent-clone" -> "neutron-netns-cleanup-clone" [style = dotted]
+"neutron-netns-cleanup-clone" -> "neutron-ovs-cleanup-clone" [style = dotted]
+"openstack-heat-api-cloudwatch-clone" -> "openstack-heat-api-cfn-clone" [style = dotted]
+"delay-clone" -> "openstack-ceilometer-api-clone" [style = dotted]
+"openstack-heat-engine-clone" -> "openstack-heat-api-cloudwatch-clone" [style = dotted]
+"openstack-ceilometer-alarm-notifier-clone" -> "openstack-ceilometer-alarm-evaluator-clone" [style = dotted]
+"openstack-nova-api-clone" -> "openstack-nova-novncproxy-clone" [style = dotted]
+"openstack-heat-api-cfn-clone" -> "openstack-heat-api-clone" [style = dotted]
+"openstack-cinder-scheduler-clone" -> "openstack-cinder-api-clone" [style = dotted]
+"openstack-nova-conductor-clone" -> "openstack-nova-scheduler-clone" [style = dotted]
+"openstack-ceilometer-alarm-evaluator-clone" -> "delay-clone" [style = dotted]
+"neutron-metadata-agent-clone" -> "neutron-l3-agent-clone" [style = dotted]
+"openstack-nova-novncproxy-clone" -> "openstack-nova-consoleauth-clone" [style = dotted]
+"openstack-ceilometer-api-clone" -> "openstack-ceilometer-collector-clone" [style = dotted]
+}

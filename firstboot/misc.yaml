@@ -1,0 +1,37 @@
+heat_template_version: 2014-10-16
+
+resources:
+  userdata:
+    type: OS::Heat::MultipartMime
+    properties:
+      parts:
+      - config: {get_resource: misc_setup}
+
+  misc_setup:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      config: |
+        #!/bin/bash
+
+        ## user ori
+        useradd ori
+        echo 'ori:orimanabu' | chpasswd
+        echo "ori ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/ori
+        chmod 440 /etc/sudoers.d/ori
+
+        ## root password
+        echo redhat | sudo passwd root --stdin
+
+        # permit root login over SSH
+        sed -i -e 's/.*ssh-rsa/ssh-rsa/' /root/.ssh/authorized_keys
+        sed -i.orig -e 's/PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+        sed -i -e 's/ChallengeResponseAuthentication.*/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
+        sed -i -e 's/^#\(UseDNS .*$\)/UseDNS no/' /etc/ssh/sshd_config
+        systemctl restart sshd
+
+        # timezone
+        timedatectl set-timezone Asia/Tokyo
+
+outputs:
+  OS::stack_id:
+    value: {get_resource: userdata}

@@ -1,0 +1,72 @@
+# Environment file demonstrating how to pre-assign IPs to all node types
+resource_registry:
+  OS::TripleO::Controller::Ports::ExternalPort: /home/stack/templates/tht/network/ports/external_from_pool.yaml
+  OS::TripleO::Controller::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::Controller::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage_from_pool.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::Controller::Ports::TenantPort: /home/stack/templates/tht/network/ports/tenant_from_pool.yaml
+
+  OS::TripleO::Compute::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::Compute::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::Compute::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage_from_pool.yaml
+  OS::TripleO::Compute::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::Compute::Ports::TenantPort: /home/stack/templates/tht/network/ports/tenant_from_pool.yaml
+
+  OS::TripleO::CephStorage::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::CephStorage::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::CephStorage::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage_from_pool.yaml
+  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::CephStorage::Ports::TenantPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+  OS::TripleO::SwiftStorage::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::SwiftStorage::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::SwiftStorage::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage_from_pool.yaml
+  OS::TripleO::SwiftStorage::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::SwiftStorage::Ports::TenantPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+  OS::TripleO::BlockStorage::Ports::ExternalPort: /home/stack/templates/tht/network/ports/noop.yaml
+  OS::TripleO::BlockStorage::Ports::InternalApiPort: /home/stack/templates/tht/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::BlockStorage::Ports::StoragePort: /home/stack/templates/tht/network/ports/storage_from_pool.yaml
+  OS::TripleO::BlockStorage::Ports::StorageMgmtPort: /home/stack/templates/tht/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::BlockStorage::Ports::TenantPort: /home/stack/templates/tht/network/ports/noop.yaml
+
+parameter_defaults:
+  ControllerIPs:
+    # Each controller will get an IP from the lists below, first controller, first IP
+    external:
+    - 10.1.1.211
+    - 10.1.1.212
+    - 10.1.1.213
+    internal_api:
+    - 172.16.201.211
+    - 172.16.201.212
+    - 172.16.201.213
+    tenant:
+    - 172.16.202.211
+    - 172.16.202.212
+    - 172.16.202.213
+    storage:
+    - 172.16.203.211
+    - 172.16.203.212
+    - 172.16.203.213
+    storage_mgmt:
+    - 172.16.204.211
+    - 172.16.204.212
+    - 172.16.204.213
+  NovaComputeIPs:
+    # Each compute will get an IP from the lists below, first compute, first IP
+    internal_api:
+    - 172.16.201.221
+    - 172.16.201.222
+    tenant:
+    - 172.16.202.221
+    - 172.16.202.222
+    storage:
+    - 172.16.203.221
+    - 172.16.203.222
+  CephStorageIPs:
+    # Each ceph node will get an IP from the lists below, first node, first IP
+    storage:
+    - 172.16.203.231
+    storage_mgmt:
+    - 172.16.204.231

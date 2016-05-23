@@ -1,0 +1,15 @@
+parameter_defaults:
+  ControllerSchedulerHints:
+    'capabilities:node': 'controller-%index%'
+  NovaComputeSchedulerHints:
+    'capabilities:node': 'compute-%index%'
+  CephStorageSchedulerHints:
+    'capabilities:node': 'storage-%index%'
+  HostnameMap:
+    overcloud-controller-0: osp8-controller-1
+    overcloud-controller-1: osp8-controller-2
+    overcloud-controller-2: osp8-controller-3
+    overcloud-novacompute-0: osp8-compute-1
+    overcloud-novacompute-1: osp8-compute-2
+    overcloud-cephstorage-0: osp8-ceph-1
+

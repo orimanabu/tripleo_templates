@@ -1,0 +1,103 @@
+##
+## https://bugzilla.redhat.com/show_bug.cgi?id=1267283
+##
+
+#heat_template_version: 2014-10-16
+#
+#resources:
+#  userdata:
+#    type: OS::Heat::MultipartMime
+#    properties:
+#      parts:
+#      - config: {get_resource: wipe_disk}
+#
+#  wipe_disk:
+#    type: OS::Heat::SoftwareConfig
+#    properties:
+#      config: |
+#        #!/bin/bash
+#        case "$(hostname)" in
+#          ceph*)
+#            for i in {b,c,d,e,f,g,n,o}; do
+#              if [ -b /dev/sd${i} ]; then
+#                echo "(II) Wiping disk /dev/sd${i}..."
+#                sgdisk -Z /dev/sd${i}
+#                sgdisk -g /dev/sd${i}
+#              fi
+#            done
+#          ;;
+#          strg*)
+#            for i in {b,c,d,e,f,g,i,j,k,l,m,n}; do
+#              if [ -b /dev/sd${i} ]; then
+#                echo "(II) Wiping disk /dev/sd${i}..."
+#                sgdisk -Z /dev/sd${i}
+#              fi
+#            done
+#          ;;
+#          ctrl*)
+#            echo "rabbitmq   -    nofile    16384" > /etc/security/limits.d/21-rabbitmq.conf
+#          ;;
+#        esac
+#
+#outputs:
+#  OS::stack_id:
+#    value: {get_resource: userdata}
+
+##
+## https://gist.github.com/gfidente/42d3cdfe0c67f7c95f0c
+##
+
+# Instructions:
+# 1. save this file somewhere, for example /home/stack/ceph_wipe_disk.yaml
+# 2. create an empty ceph_wipe_env.yaml with the following contents:
+#
+# resource_registry:
+#   OS::TripleO::NodeUserData: /home/stack/ceph_wipe_disk.yaml
+# parameter_defaults:
+#   ceph_disks: "/dev/sdb /dev/sdc"
+#
+# 3. when deploying, add to the CLI command the following argument:
+#
+# -e /path/to/ceph_wipe_env.yaml
+
+heat_template_version: 2014-10-16
+
+parameters:
+  ceph_disks:
+    type: string
+    description: A list of block devices to be cleared with an empty GPT label.
+    default: "/dev/sdb /dev/sdc"
+
+description: >
+  This is an example showing how you can clear the cephstorage nodes disk with an empty GPT label on firstboot.
+resources:
+  userdata:
+    type: OS::Heat::MultipartMime
+    properties:
+      parts:
+      - config: {get_resource: wipe_disk}
+
+  wipe_disk:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      config:
+        str_replace: 
+          template: |
+            #!/bin/bash
+            case "$(hostname)" in
+              *ceph*)
+                for d in $disks; do
+                  if [ -b ${d} ]; then
+                    echo "Wiping disk ${d} ..."
+                    sgdisk -Z ${d}
+                    sgdisk -o ${d}
+                  fi
+                done
+              ;;
+            esac
+          params:
+            $disks: {get_param: ceph_disks}
+
+outputs:
+  OS::stack_id:
+    value: {get_resource: userdata}
